@@ -1,0 +1,10 @@
+feat: TxAutopsy v1 — AI Web3 transaction failure diagnosis
+
+- Multi-chain: Ethereum, Injective, Base, Arbitrum, Solana
+- AI diagnosis via DeepSeek
+- 20+ error types classified
+- Prevention layer on every diagnosis
+- Dark/light mode toggle
+- Local history log
+- Shareable diagnosis links
+- Deepest Injective error support

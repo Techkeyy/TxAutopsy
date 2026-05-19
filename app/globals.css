@@ -1,26 +1,149 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html { font-size: 16px; scroll-behavior: smooth; }
+
+:root, [data-theme="dark"] {
+  --bg: #000000;
+  --surface: #0a0a0f;
+  --surface-raised: #0f0f1a;
+  --border: #1a1a2e;
+  --accent: #4F8EF7;
+  --accent-hover: #6BA3FF;
+  --accent-dim: rgba(79,142,247,0.08);
+  --accent-border: rgba(79,142,247,0.2);
+  --text-primary: #FFFFFF;
+  --text-secondary: #8888AA;
+  --text-muted: #7070AA;
+  --text-dim: #404468;
+  --nav-bg: rgba(0,0,0,0.95);
+  --card-hover: #08080f;
+  --grid-bg: #1a1a2e;
+  --ticker-color: #4F8EF7;
+  --btn-text: #ffffff;
+  --danger: #ef4444;
+  --inj-bg: rgba(79,142,247,0.04);
+  --inj-border: rgba(79,142,247,0.15);
+  --step-bg: #000000;
+  --step-hover: #08080f;
+  --result-header: #08080f;
+  --tag-text: #4F8EF7;
+  --tag-border: rgba(79,142,247,0.25);
+  --outline-stroke: #ffffff;
+  --black: var(--bg);
+  --white: var(--text-primary);
+  --gray: var(--text-secondary);
+  --gray-dim: var(--text-muted);
+  --gray-dark: var(--text-dim);
+  --lime: var(--accent);
+  --lime-dim: var(--accent-dim);
+  --lime-border: var(--accent-border);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+[data-theme="light"] {
+  --bg: #F8F9FF;
+  --surface: #FFFFFF;
+  --surface-raised: #F0F2FF;
+  --border: #E2E5F5;
+  --accent: #4F8EF7;
+  --accent-hover: #3A7AE4;
+  --accent-dim: rgba(79,142,247,0.08);
+  --accent-border: rgba(79,142,247,0.25);
+  --text-primary: #0A0A1A;
+  --text-secondary: #4A4A6A;
+  --text-muted: #8888AA;
+  --text-dim: #BBBBCC;
+  --nav-bg: rgba(248,249,255,0.95);
+  --card-hover: #F5F6FF;
+  --grid-bg: #E2E5F5;
+  --ticker-color: #4F8EF7;
+  --btn-text: #ffffff;
+  --inj-bg: rgba(79,142,247,0.05);
+  --inj-border: rgba(79,142,247,0.2);
+  --step-bg: #FFFFFF;
+  --step-hover: #F5F6FF;
+  --result-header: #F5F6FF;
+  --tag-text: #4F8EF7;
+  --tag-border: rgba(79,142,247,0.3);
+  --outline-stroke: #0A0A1A;
+  --black: var(--bg);
+  --white: var(--text-primary);
+  --gray: var(--text-secondary);
+  --gray-dim: var(--text-muted);
+  --gray-dark: var(--text-dim);
+  --lime: var(--accent);
+  --lime-dim: var(--accent-dim);
+  --lime-border: var(--accent-border);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Space Grotesk', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+nav a,
+nav a:visited,
+nav a:hover {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+*, *::before, *::after {
+  transition: background-color 0.25s ease,
+              border-color 0.25s ease,
+              color 0.15s ease;
+}
+
+.hero-outlined,
+[style*="animation"] {
+  transition: none !important;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+::selection { background: var(--accent-dim); }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Hero outlined text —
+   switches stroke color per theme */
+
+[data-theme="dark"] .hero-outlined {
+  -webkit-text-stroke: 3px #ffffff;
+  text-stroke: 3px #ffffff;
+}
+
+[data-theme="light"] .hero-outlined {
+  -webkit-text-stroke: 3px #0A0A1A;
+  text-stroke: 3px #0A0A1A;
+}
+
+/* Fallback if data-theme not yet set */
+.hero-outlined {
+  -webkit-text-stroke: 3px #ffffff;
+  text-stroke: 3px #ffffff;
 }
