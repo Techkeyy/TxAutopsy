@@ -66,6 +66,7 @@ const styles = `
 type HistoryItem = { hash: string; chain?: string; whatHappened?: string; timestamp: number }
 type DiagnosisResult = {
   chain?: string
+  errorCategory?: string
   confidence?: number
   gasLost?: boolean
   gasAmountLost?: string | number
@@ -74,6 +75,13 @@ type DiagnosisResult = {
   fixes?: Array<{ rank: number; title: string; description: string; actionUrl?: string }>
   prevention?: { title: string; rule: string; habit: string }
   actionUrl?: string
+  marginDeficit?: {
+    available: string
+    total: string
+    denom: string
+    subaccountId?: string
+    marketDescription?: string
+  } | null
   error?: string
 }
 
@@ -238,6 +246,199 @@ function DiagnoseContent() {
                   {gasNoteText}
                 </div>
               </div>
+
+              {/* MARGIN DEFICIT VISUAL — only shows for Injective margin errors */}
+              {result.marginDeficit &&
+                result.chain === 'injective' &&
+                (result.errorCategory === 'margin_insufficient' || result.errorCategory === 'subaccount_error') && (
+                <div style={{
+                  padding: '32px',
+                  borderBottom: '1px solid var(--border)',
+                  background: 'var(--surface)',
+                }}>
+                  <p style={{
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: '9px',
+                    letterSpacing: '0.3em',
+                    color: 'var(--text-muted)',
+                    textTransform: 'uppercase' as const,
+                    marginBottom: '20px',
+                  }}>
+                    Subaccount State At Time of Failure
+                  </p>
+
+                  {result.marginDeficit.marketDescription && (
+                    <p style={{
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '11px',
+                      color: 'var(--text-secondary)',
+                      marginBottom: '20px',
+                      letterSpacing: '0.05em',
+                    }}>
+                      Market: {result.marginDeficit.marketDescription}
+                    </p>
+                  )}
+
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column' as const,
+                    gap: '1px',
+                    background: 'var(--border)',
+                    marginBottom: '20px',
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '14px 20px',
+                      background: 'var(--bg)',
+                    }}>
+                      <span style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '11px',
+                        color: 'var(--text-muted)',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase' as const,
+                      }}>
+                        Available Balance
+                      </span>
+                      <span style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '14px',
+                        color: 'var(--text-primary)',
+                        fontWeight: 700,
+                      }}>
+                        ${result.marginDeficit.available}{' '}
+                        <span style={{
+                          fontSize: '10px',
+                          color: 'var(--text-muted)'
+                        }}>
+                          {result.marginDeficit.denom}
+                        </span>
+                      </span>
+                    </div>
+
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '14px 20px',
+                      background: 'var(--bg)',
+                    }}>
+                      <span style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '11px',
+                        color: 'var(--text-muted)',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase' as const,
+                      }}>
+                        Total Balance
+                      </span>
+                      <span style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '14px',
+                        color: 'var(--text-secondary)',
+                        fontWeight: 700,
+                      }}>
+                        ${result.marginDeficit.total}{' '}
+                        <span style={{
+                          fontSize: '10px',
+                          color: 'var(--text-muted)'
+                        }}>
+                          {result.marginDeficit.denom}
+                        </span>
+                      </span>
+                    </div>
+
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '14px 20px',
+                      background: 'rgba(239,68,68,0.05)',
+                      borderTop: '1px solid rgba(239,68,68,0.15)',
+                    }}>
+                      <span style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '11px',
+                        color: '#ef4444',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase' as const,
+                      }}>
+                        ⚠ Estimated Deficit
+                      </span>
+                      <span style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '14px',
+                        color: '#ef4444',
+                        fontWeight: 700,
+                      }}>
+                        ~${(
+                          Math.max(
+                            0,
+                            parseFloat(result.marginDeficit.total || '0') * 0.5 -
+                            parseFloat(result.marginDeficit.available || '0')
+                          )
+                        ).toFixed(2)}{' '}
+                        <span style={{ fontSize: '10px' }}>
+                          {result.marginDeficit.denom} needed
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    flexWrap: 'wrap' as const,
+                  }}>
+                    <a
+                      href="https://helixapp.com/portfolio"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-block',
+                        padding: '12px 24px',
+                        background: 'var(--accent)',
+                        color: '#ffffff',
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '11px',
+                        letterSpacing: '0.15em',
+                        textTransform: 'uppercase' as const,
+                        textDecoration: 'none',
+                        fontWeight: 700,
+                        transition: 'opacity 0.2s',
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
+                      onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+                    >
+                      FUND SUBACCOUNT ON HELIX →
+                    </a>
+                    <span style={{
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '10px',
+                      color: 'var(--text-dim)',
+                      letterSpacing: '0.05em',
+                    }}>
+                      Portfolio → Deposit → Subaccount
+                    </span>
+                  </div>
+
+                  {result.marginDeficit.subaccountId && (
+                    <p style={{
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '10px',
+                      color: 'var(--text-dim)',
+                      marginTop: '12px',
+                      wordBreak: 'break-all' as const,
+                      letterSpacing: '0.02em',
+                    }}>
+                      Subaccount: {result.marginDeficit.subaccountId}
+                    </p>
+                  )}
+                </div>
+              )}
 
               <div className="result-section">
                 <p className="result-section-label">What Happened</p>

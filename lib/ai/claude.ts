@@ -75,6 +75,31 @@ export async function generateDiagnosis(
     }
   }
 
+  // Calculate margin deficit if Injective balance data is available
+  let marginDeficit: any = null
+  if (
+    chain === 'injective' &&
+    (trace as any).injectiveContext
+  ) {
+    const ctx = (trace as any).injectiveContext
+    const available = parseFloat(
+      ctx.subaccountAvailableBalance || '0'
+    )
+    const total = parseFloat(
+      ctx.subaccountTotalBalance || '0'
+    )
+
+    if (available > 0 || total > 0) {
+      marginDeficit = {
+        available: ctx.subaccountAvailableBalance || '0',
+        total: ctx.subaccountTotalBalance || '0',
+        denom: ctx.subaccountDenom || 'USDT',
+        subaccountId: ctx.subaccountId,
+        marketDescription: ctx.marketDescription,
+      }
+    }
+  }
+
   return {
     chain,
     txHash: trace.hash,
@@ -92,5 +117,6 @@ export async function generateDiagnosis(
       rule: 'Review before retrying.',
       habit: 'Double-check parameters.',
     },
+    marginDeficit,
   }
 }

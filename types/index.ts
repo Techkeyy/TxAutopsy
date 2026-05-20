@@ -44,6 +44,14 @@ export interface Prevention {
   habit: string
 }
 
+export interface MarginDeficit {
+  available: string
+  total: string
+  denom: string
+  subaccountId?: string
+  marketDescription?: string
+}
+
 export interface DiagnosisResult {
   chain: Chain
   txHash: string
@@ -59,4 +67,5 @@ export interface DiagnosisResult {
   fixes: Fix[]
   prevention: Prevention
   actionUrl?: string
+  marginDeficit?: MarginDeficit | null
 }

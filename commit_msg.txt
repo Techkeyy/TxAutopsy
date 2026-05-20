@@ -1,8 +1,7 @@
-feat: real Injective SDK integration
+feat: margin deficit visual component
 
-- Replace string matching with @injectivelabs/sdk-ts
-- Fetch real subaccount balances from Indexer API
-- Fetch real market data from Exchange module
-- AI prompt now includes actual on-chain numbers
-- Add Fix It action buttons to diagnosis results
-- Update live demo URL in README
+- Show real subaccount balance breakdown
+- Available vs total vs estimated deficit
+- Fund subaccount CTA linking to Helix
+- Only displays for Injective margin errors
+  with real SDK data available
