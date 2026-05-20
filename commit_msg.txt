@@ -1,10 +1,8 @@
-feat: TxAutopsy v1 — AI Web3 transaction failure diagnosis
+feat: real Injective SDK integration
 
-- Multi-chain: Ethereum, Injective, Base, Arbitrum, Solana
-- AI diagnosis via DeepSeek
-- 20+ error types classified
-- Prevention layer on every diagnosis
-- Dark/light mode toggle
-- Local history log
-- Shareable diagnosis links
-- Deepest Injective error support
+- Replace string matching with @injectivelabs/sdk-ts
+- Fetch real subaccount balances from Indexer API
+- Fetch real market data from Exchange module
+- AI prompt now includes actual on-chain numbers
+- Add Fix It action buttons to diagnosis results
+- Update live demo URL in README

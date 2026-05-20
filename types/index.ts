@@ -58,4 +58,5 @@ export interface DiagnosisResult {
   gasAmountLost?: string
   fixes: Fix[]
   prevention: Prevention
+  actionUrl?: string
 }

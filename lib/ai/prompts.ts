@@ -4,12 +4,28 @@ import { TxTrace } from '../chains/ethereum'
 import { CHAIN_NAMES } from '../chains/detector'
 
 export function buildDiagnosisPrompt(
-	trace: TxTrace,
+	trace: TxTrace & { injectiveContext?: any },
 	chain: Chain,
 	classified: ClassifiedError
 ): string {
 	const chainName = CHAIN_NAMES[chain]
 	const errorText = trace.errorMessage || trace.revertReason || 'unknown error'
+
+	let injectiveDataBlock = ''
+	if (chain === 'injective' && trace.injectiveContext) {
+		const ctx = trace.injectiveContext
+		injectiveDataBlock = `
+REAL ON-CHAIN DATA FROM INJECTIVE SDK:
+${ctx.subaccountId ? `- Subaccount ID: ${ctx.subaccountId}` : ''}
+${ctx.subaccountAvailableBalance ? `- Subaccount Available Balance: $${ctx.subaccountAvailableBalance} ${ctx.subaccountDenom || ''}` : ''}
+${ctx.subaccountTotalBalance ? `- Subaccount Total Balance: $${ctx.subaccountTotalBalance} ${ctx.subaccountDenom || ''}` : ''}
+${ctx.marketDescription ? `- Market: ${ctx.marketDescription}` : ''}
+${ctx.minInitialMarginRatio ? `- Minimum Initial Margin Ratio: ${ctx.minInitialMarginRatio}` : ''}
+${ctx.errorCode ? `- Injective Error Code: ${ctx.errorCode}` : ''}
+
+IMPORTANT: Use the real balance numbers above in your explanation. If available balance is shown, calculate and state the shortfall explicitly. For example: "Your subaccount had $X available but this position required at least $Y in margin."
+`
+	}
 
 	return `You are TxAutopsy, an expert Web3 transaction failure analyst. 
 Your job is to explain failed blockchain transactions in plain English 
@@ -26,6 +42,7 @@ TRANSACTION DATA:
 - Gas Lost: ${classified.gasLost ? 'YES' : 'NO'}
 ${trace.revertReason ? `- Revert Reason: ${trace.revertReason}` : ''}
 ${trace.logs?.length ? `- Event Logs: ${JSON.stringify(trace.logs).slice(0, 500)}` : ''}
+${injectiveDataBlock}
 
 CHAIN CONTEXT:
 ${getChainContext(chain)}

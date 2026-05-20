@@ -71,8 +71,9 @@ type DiagnosisResult = {
   gasAmountLost?: string | number
   whatHappened?: string
   whyItHappened?: string
-  fixes?: Array<{ rank: number; title: string; description: string }>
+  fixes?: Array<{ rank: number; title: string; description: string; actionUrl?: string }>
   prevention?: { title: string; rule: string; habit: string }
+  actionUrl?: string
   error?: string
 }
 
@@ -254,12 +255,66 @@ function DiagnoseContent() {
                   <p className="result-section-label">How to Fix It</p>
                   <ul className="fix-list">
                     {result.fixes.map((fix) => (
-                      <li key={fix.rank} className="fix-item">
-                        <span className="fix-rank">{String(fix.rank).padStart(2, '0')}</span>
-                        <div>
-                          <p className="fix-title">{fix.title}</p>
-                          <p className="fix-desc">{fix.description}</p>
+                      <li key={fix.rank} className="fix-item" style={{ display: 'flex', gap: '16px', padding: '16px 20px', background: 'var(--surface)', border: '1px solid var(--border)', transition: 'border-color 0.2s', flexDirection: 'column' }}>
+                        <div style={{ display: 'flex', gap: '16px' }}>
+                          <span style={{
+                            fontFamily: "'Space Mono', monospace",
+                            fontSize: '11px',
+                            color: 'var(--accent)',
+                            flexShrink: 0,
+                            width: '20px',
+                            fontWeight: 700,
+                          }}>
+                            {String(fix.rank).padStart(2, '0')}
+                          </span>
+                          <div>
+                            <p style={{
+                              fontFamily: "'Space Grotesk', sans-serif",
+                              fontWeight: 700,
+                              fontSize: '13px',
+                              color: 'var(--text-primary)',
+                              marginBottom: '4px',
+                              textTransform: 'uppercase',
+                              letterSpacing: '0.03em',
+                            }}>
+                              {fix.title}
+                            </p>
+                            <p style={{
+                              fontFamily: "'Space Mono', monospace",
+                              fontSize: '11px',
+                              color: 'var(--text-muted)',
+                              lineHeight: '1.7',
+                            }}>
+                              {fix.description}
+                            </p>
+                          </div>
                         </div>
+                        {(fix.actionUrl || (fix.rank === 1 && result.actionUrl)) ? (
+                          <a
+                            href={fix.actionUrl || result.actionUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              display: 'inline-block',
+                              marginLeft: '36px',
+                              padding: '10px 20px',
+                              background: 'var(--accent)',
+                              color: '#ffffff',
+                              fontFamily: "'Space Mono', monospace",
+                              fontSize: '11px',
+                              letterSpacing: '0.15em',
+                              textTransform: 'uppercase',
+                              textDecoration: 'none',
+                              fontWeight: 700,
+                              transition: 'opacity 0.2s',
+                              width: 'fit-content',
+                            }}
+                            onMouseEnter={(event) => (event.currentTarget.style.opacity = '0.85')}
+                            onMouseLeave={(event) => (event.currentTarget.style.opacity = '1')}
+                          >
+                            FIX IT →
+                          </a>
+                        ) : null}
                       </li>
                     ))}
                   </ul>

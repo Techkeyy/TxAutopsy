@@ -3,7 +3,7 @@
 > AI-powered transaction failure diagnosis for Web3.
 > Paste any failed transaction hash. Get the answer in plain English.
 
-**Live Demo:** Coming soon
+**Live Demo:** https://tx-autopsy.vercel.app
 
 ---
 
