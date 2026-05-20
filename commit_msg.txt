@@ -1,7 +1,0 @@
-feat: margin deficit visual component
-
-- Show real subaccount balance breakdown
-- Available vs total vs estimated deficit
-- Fund subaccount CTA linking to Helix
-- Only displays for Injective margin errors
-  with real SDK data available
