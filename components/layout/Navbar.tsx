@@ -200,7 +200,7 @@ export default function Navbar() {
             <Link href="/docs" className={`nav-link ${pathname === '/docs' ? 'active' : ''}`} style={{ textDecoration: 'none' }}>
               DOCS
             </Link>
-            <a href="https://github.com" className="nav-link" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+            <a href="https://github.com/Techkeyy/TxAutopsy" className="nav-link" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
               GITHUB
             </a>
           </div>
@@ -264,7 +264,7 @@ export default function Navbar() {
             <Link href="/docs" className={`mobile-link ${pathname === '/docs' ? 'active' : ''}`} style={{ textDecoration: 'none' }}>
               Docs
             </Link>
-            <a href="https://github.com" className="mobile-link" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+            <a href="https://github.com/Techkeyy/TxAutopsy" className="mobile-link" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
               GitHub
             </a>
           </div>

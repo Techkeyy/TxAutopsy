@@ -63,7 +63,7 @@ export default function Footer() {
             Docs
           </Link>
           <a
-            href="https://github.com"
+            href="https://github.com/Techkeyy/TxAutopsy"
             target="_blank"
             rel="noreferrer"
             style={{
