@@ -176,6 +176,11 @@ export default function Navbar() {
             display: inline-flex;
           }
         }
+        @media (max-width: 400px) {
+          nav { padding: 0 16px; }
+          .nav-logo { font-size: 11px; letter-spacing: 0.2em; }
+          .mobile-panel { padding: 14px 20px 18px; }
+        }
       `}</style>
       <nav>
         <div className="nav-inner">

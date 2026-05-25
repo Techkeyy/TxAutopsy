@@ -200,6 +200,56 @@ export default function DocsPage() {
       .chain-list { grid-template-columns: 1fr; }
       .step-row { flex-direction: column; gap: 12px; }
     }
+
+    @media (max-width: 640px) {
+      .docs-wrap {
+        padding: 100px 20px 60px;
+      }
+      .page-heading {
+        font-size: clamp(2rem, 10vw, 3rem);
+      }
+      .doc-section {
+        padding: 32px 0;
+      }
+      .doc-section-title {
+        font-size: 16px;
+      }
+      .doc-body {
+        font-size: 11px;
+      }
+      .chain-list {
+        grid-template-columns: 1fr;
+      }
+      .step-row {
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px 16px;
+      }
+      .step-n {
+        font-size: 18px;
+        width: auto;
+      }
+      .step-text-body {
+        font-size: 10px;
+      }
+      .error-table {
+        font-size: 10px;
+      }
+      .error-table th,
+      .error-table td {
+        padding: 8px 10px;
+      }
+      .inj-box {
+        padding: 24px 16px;
+      }
+      .inj-sub {
+        font-size: 10px;
+      }
+      .tag {
+        font-size: 9px;
+        padding: 4px 10px;
+      }
+    }
   `
 
   const errorTypes = [

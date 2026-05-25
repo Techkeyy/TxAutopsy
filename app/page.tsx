@@ -542,15 +542,54 @@ const pageCss = `
   }
 
   @media (max-width: 900px) {
-    nav, .hero, .section, footer { padding-left: 24px; padding-right: 24px; }
-    .nav-right { gap: 18px; flex-wrap: wrap; justify-content: flex-end; }
+    .hero, .section, footer {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    .nav-right { gap: 18px; }
     .hero { padding-top: 120px; padding-bottom: 80px; }
   }
 
-  @media (max-width: 768px) {
-    .stats { gap: 28px; }
-    .step { flex-direction: column; gap: 14px; }
-    .inj-box, .cta-box { padding: 32px 20px; }
+  @media (max-width: 640px) {
+    nav { padding: 0 20px; }
+    .nav-tag { display: none; }
+    .nav-live { display: none; }
+    .hero { padding-top: 100px; padding-bottom: 60px; }
+    .hero-line-1,
+    .hero-line-2,
+    .hero-line-3 {
+      font-size: clamp(3.2rem, 18vw, 5rem) !important;
+    }
+    .hero-desc { font-size: 12px; }
+    .stats { gap: 20px; }
+    .stat-value { font-size: 32px; }
+    .stat-label { font-size: 8px; }
+    .input-section { max-width: 100%; }
+    .hash-input { font-size: 11px; padding: 14px 16px; }
+    .cta-btn { font-size: 11px; padding: 14px; letter-spacing: 0.15em; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .steps-list .step { flex-direction: column; gap: 8px; padding: 24px 20px; }
+    .step-num { font-size: 28px; width: auto; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .feature-card { padding: 24px 20px; }
+    .inj-box { padding: 28px 20px; }
+    .cta-box { padding: 48px 20px; }
+    .cta-heading-1,
+    .cta-heading-2 { font-size: clamp(2rem, 10vw, 3.5rem); }
+    .section { padding: 48px 20px; }
+    .section-heading { font-size: clamp(1.5rem, 7vw, 2.2rem); margin-bottom: 32px; }
+    .ticker-text { font-size: 9px; letter-spacing: 0.1em; }
+    footer { padding: 28px 20px; }
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .footer-links { gap: 20px; flex-wrap: wrap; }
+  }
+
+  @media (max-width: 400px) {
+    .hero-line-1,
+    .hero-line-2,
+    .hero-line-3 { font-size: 15vw !important; }
+    .stats { gap: 16px; }
+    .stat-value { font-size: 28px; }
   }
 `
 

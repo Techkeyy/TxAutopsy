@@ -147,3 +147,22 @@ nav a:hover {
   -webkit-text-stroke: 3px #ffffff;
   text-stroke: 3px #ffffff;
 }
+
+/* Mobile touch improvements */
+input, button, a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Prevent horizontal scroll */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Improve text readability on mobile */
+@media (max-width: 640px) {
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+}

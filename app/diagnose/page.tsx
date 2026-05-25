@@ -61,6 +61,68 @@ const styles = `
   .share-btn:hover { border-color: var(--accent); color: var(--accent); }
   .error-box { border: 1px solid rgba(239,68,68,0.2); padding: 32px; background: var(--surface); }
   .error-title { font-weight: 700; font-size: 16px; color: var(--danger, #ef4444); text-transform: uppercase; margin-bottom: 10px; }
+
+  @media (max-width: 640px) {
+    .diagnose-wrap {
+      padding: 100px 20px 60px;
+    }
+    .page-heading {
+      font-size: clamp(2rem, 10vw, 3rem);
+    }
+    .hash-input {
+      font-size: 11px;
+      padding: 14px 16px;
+    }
+    .cta-btn {
+      font-size: 11px;
+      padding: 14px;
+      letter-spacing: 0.15em;
+    }
+    .result-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 18px 20px;
+    }
+    .result-section {
+      padding: 20px;
+    }
+    .result-title {
+      font-size: 16px;
+    }
+    .result-body {
+      font-size: 11px;
+    }
+    .fix-item {
+      padding: 14px 16px;
+    }
+    .fix-title {
+      font-size: 12px;
+    }
+    .fix-desc {
+      font-size: 10px;
+    }
+    .prevention-box {
+      padding: 18px 16px;
+    }
+    .loading-box {
+      padding: 32px 20px;
+    }
+    .loading-title {
+      font-size: 15px;
+    }
+    .loading-step {
+      font-size: 10px;
+    }
+    .share-btn {
+      width: 100%;
+      text-align: center;
+      padding: 12px 16px;
+    }
+    .error-box {
+      padding: 20px;
+    }
+  }
 `
 
 type HistoryItem = { hash: string; chain?: string; whatHappened?: string; timestamp: number }
@@ -252,7 +314,7 @@ function DiagnoseContent() {
                 result.chain === 'injective' &&
                 (result.errorCategory === 'margin_insufficient' || result.errorCategory === 'subaccount_error') && (
                 <div style={{
-                  padding: '32px',
+                  padding: 'clamp(16px, 4vw, 32px)',
                   borderBottom: '1px solid var(--border)',
                   background: 'var(--surface)',
                 }}>
@@ -595,15 +657,15 @@ function DiagnoseContent() {
                       runDiagnosis(item.hash)
                       window.scrollTo({ top: 0, behavior: 'smooth' })
                     }}
-                    style={{ background: 'var(--bg)', padding: '20px 24px', cursor: 'pointer', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '16px', transition: 'background 0.2s' }}
+                    style={{ background: 'var(--bg)', padding: 'clamp(14px, 3vw, 20px) clamp(16px, 4vw, 24px)', cursor: 'pointer', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '16px', transition: 'background 0.2s' }}
                     onMouseEnter={(event) => (event.currentTarget.style.background = 'var(--card-hover)')}
                     onMouseLeave={(event) => (event.currentTarget.style.background = 'var(--bg)')}
                   >
                     <div style={{ overflow: 'hidden', flex: 1 }}>
-                      <div style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', color: 'var(--accent)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginBottom: '6px' }}>
+                      <div style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', color: 'var(--accent)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginBottom: '6px', maxWidth: 'min(280px, 45vw)' }}>
                         {item.hash}
                       </div>
-                      <div style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', color: 'var(--text-secondary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', lineHeight: '1.5' }}>
+                      <div style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', color: 'var(--text-secondary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', lineHeight: '1.5', maxWidth: 'min(300px, 40vw)' }}>
                         {item.whatHappened}
                       </div>
                     </div>
